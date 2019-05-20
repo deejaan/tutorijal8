@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TransportDAO {
-    private static TransportDAO instance;
+    private static TransportDAO instance=null;
     private Connection conn;
     private PreparedStatement psAddDriver, psGetDrivers, psDeleteAllFromBusses, psDeleteAllFromDrivers, psDeleteDriver;
 
@@ -65,6 +65,15 @@ public class TransportDAO {
         return instance;
     }
 
+    public void resetDatabase() {
+        try {
+            psDeleteAllFromDrivers.execute();
+            psDeleteAllFromBusses.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<Bus> getBusses() {
     }
 
@@ -84,5 +93,12 @@ public class TransportDAO {
     }
 
     public void addDriver(Driver driver) {
+        try {
+            psAddDriver.setInt(1, driver.getId()); //drugi parametar i ne treba**
+            //isto za ostale atribute
+            psAddDriver.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
