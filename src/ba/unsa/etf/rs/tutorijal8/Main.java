@@ -10,7 +10,7 @@ public class Main {
     private static TransportDAO dao ;
 
     public static void main(String[] args) {
-	// write your code here
+        // write your code here
         dao = TransportDAO.getInstance();
         Scanner tok = new Scanner(System.in);
         String result="";
@@ -35,7 +35,6 @@ public class Main {
                 case "Ispisi autobuse":
                     ispisiAutobuse();
                     break;
-
             }
         }
     }
@@ -43,7 +42,7 @@ public class Main {
     private static void ispisiAutobuse() {
         ArrayList<Bus> busses = dao.getBusses();
         for (int i = 0; i < busses.size(); i++) {
-            System.out.println((i+1)+". "+busses.get(i));
+            System.out.println((i+1)+". "+busses.get(i).toString());
         }
     }
 
@@ -54,10 +53,10 @@ public class Main {
         }
         System.out.print("Index: ");
         int driverIndex = tok.nextInt()-1;
-        Driver driver = dao.getDrivers().get(driverIndex);
+        ba.unsa.etf.rs.tutorijal8.Driver driver = dao.getDrivers().get(driverIndex);
         System.out.println("Odaberite autobus: ");
         for (int i = 0; i < dao.getBusses().size(); i++) {
-            System.out.println((i+1)+". "+dao.getBusses().get(i));
+            System.out.println((i+1)+". "+dao.getBusses().get(i).toString());
         }
         System.out.print("Index: ");
         int busIndex = tok.nextInt()-1;
@@ -83,10 +82,10 @@ public class Main {
 
     private static void otpustiVozaca(Scanner tok) {
         for (int i = 0; i < dao.getDrivers().size(); i++) {
-            System.out.println((i+1)+". "+dao.getDrivers().get(i));
+            System.out.println((i+1)+". " + dao.getDrivers().get(i));
         }
         int index = tok.nextInt()-1;
-        Driver driver = dao.getDrivers().get(index);
+        ba.unsa.etf.rs.tutorijal8.Driver driver = dao.getDrivers().get(index);
         dao.deleteDriver(driver);
     }
 
