@@ -4,37 +4,50 @@ public class Bus {
     private Integer id = null;
     private String maker;
     private String series;
-    private int seatNumber;
-    private Driver driverOne = null;
-    private Driver driverTwo = null;
+    private int numberOfSeats;
+    private int numberOfDrivers;
+    private Driver FirstDriver = null;
+    private Driver SecondDriver = null;
 
-    public Bus(String maker, String series, int seatNumber) {
-        this.maker = maker;
-        this.series = series;
-        this.seatNumber = seatNumber;
+    public void setFirstDriver(Driver firstDriver) {
+        FirstDriver = firstDriver;
     }
 
-    public Bus(Integer id, String maker, String series, int seatNumber) {
+    public void setSecondDriver(Driver secondDriver) {
+        SecondDriver = secondDriver;
+    }
+
+    public Bus(){ }
+
+    public Bus(String maker, String series, int numberOfSeats) {
+        this.maker = maker;
+        this.series = series;
+        this.numberOfSeats = numberOfSeats;
+    }
+
+    public Bus(int Id, String maker, String series, int numberOfSeats) {
+        id = Id;
+        this.maker = maker;
+        this.series = series;
+        this.numberOfSeats = numberOfSeats;
+
+    }
+    public Bus(int Id, String maker, String series, int numberOfSeats, Driver firstDriver, Driver secondDriver) {
+        id = Id;
+        this.maker = maker;
+        this.series = series;
+        this.numberOfSeats = numberOfSeats;
+        FirstDriver = firstDriver;
+        SecondDriver = secondDriver;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
-        this.maker = maker;
-        this.series = series;
-        this.seatNumber = seatNumber;
     }
-
-    public Bus(int id, String maker, String series,
-               int seatNumber, Driver driverOne, Driver driverTwo) {
-        this.id = id;
-        this.maker = maker;
-        this.series = series;
-        this.seatNumber = seatNumber;
-        this.driverOne = driverOne;
-        this.driverTwo = driverTwo;
-    }
-
-    public Bus() {
-
-    }
-
 
     public String getMaker() {
         return maker;
@@ -53,51 +66,39 @@ public class Bus {
     }
 
     public int getSeatNumber() {
-        return seatNumber;
+        return numberOfSeats;
     }
 
-    public void setSeatNumber(int seatNumber) {
-        this.seatNumber = seatNumber;
+    public void setNumberOfSeats(int numberOfSeats) {
+        this.numberOfSeats = numberOfSeats;
     }
 
-    public Integer getId() {
-        return id;
+    public int getNumberOfDrivers() {
+        return numberOfDrivers;
     }
 
+    public void setNumberOfDrivers(int numberOfDrivers) {
+        this.numberOfDrivers = numberOfDrivers;
+    }
 
     public Driver getDriverOne() {
-        return driverOne;
-    }
-
-    public void setDriverOne(Driver driverOne) {
-        this.driverOne = driverOne;
+        return FirstDriver;
     }
 
     public Driver getDriverTwo() {
-        return driverTwo;
-    }
-
-    public void setDriverTwo(Driver driverTwo) {
-        this.driverTwo = driverTwo;
+        return SecondDriver;
     }
 
     @Override
     public String toString () {
-        String name = "";
-        name += this.maker + " " + this.series + " ( seats: " + this.getSeatNumber() + " )";
-        if (driverOne != null) {
-            name += driverOne.toString();
+        String s = "";
+        s += this.maker + " " + this.series + " ( seats: " + this.getSeatNumber() + " )";
+        if (FirstDriver != null) {
+            s += FirstDriver.toString();
         }
-        if (driverTwo != null) {
-            name += driverTwo.toString();
+        if (SecondDriver != null) {
+            s += SecondDriver.toString();
         }
-        return name;
-    }
-
-    public boolean equals(Bus bus) {
-        if (id != null) {
-            return (bus.getId().equals(this.getId()));
-        }
-        return false;
+        return s;
     }
 }

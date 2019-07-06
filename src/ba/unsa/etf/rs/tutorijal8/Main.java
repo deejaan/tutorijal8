@@ -1,5 +1,6 @@
 package ba.unsa.etf.rs.tutorijal8;
 
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ public class Main {
     private static TransportDAO dao ;
 
     public static void main(String[] args) {
-        // write your code here
+
         dao = TransportDAO.getInstance();
         Scanner tok = new Scanner(System.in);
         String result="";
@@ -42,8 +43,44 @@ public class Main {
     private static void ispisiAutobuse() {
         ArrayList<Bus> busses = dao.getBusses();
         for (int i = 0; i < busses.size(); i++) {
-            System.out.println((i+1)+". "+busses.get(i).toString());
+            System.out.println((i+1)+". "+busses.get(i));
         }
+    }
+
+    private static void ukloniAutobus(Scanner tok) {
+        for (int i = 0; i < dao.getBusses().size(); i++) {
+            System.out.println((i+1)+". "+dao.getBusses().get(i));
+        }
+        int index = tok.nextInt()-1;
+        Bus bus = dao.getBusses().get(index);
+        dao.deleteBus(bus);
+    }
+
+    private static void otpustiVozaca(Scanner tok) {
+        for (int i = 0; i < dao.getDrivers().size(); i++) {
+            System.out.println((i+1)+". " + dao.getDrivers().get(i));
+        }
+        int index = tok.nextInt()-1;
+        ba.unsa.etf.rs.tutorijal8.Driver driver = dao.getDrivers().get(index);
+        dao.deleteDriver(driver);
+    }
+
+    private static void dodajAutobus(Scanner tok) {
+        String maker = tok.nextLine();
+        String series = tok.nextLine();
+        int seatNumber = tok.nextInt();
+        Bus bus = new Bus(maker, series, seatNumber );
+        dao.addBus(bus);
+    }
+
+    private static void dodajVozaca(Scanner tok){
+        Scanner scanner = tok;
+        String ime = scanner.nextLine();
+        String prezime = scanner.nextLine();
+        String jmb = scanner.nextLine();
+        LocalDate birthday = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("d.M.yyyy"));
+        LocalDate hireDate = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("d.M.yyyy"));
+        dao.addDriver(new Driver(ime, prezime, jmb, birthday, hireDate));
     }
 
     private static void dodijeliAutobusVozacu(Scanner tok) {
@@ -71,39 +108,4 @@ public class Main {
         dao.dodijeliVozacuAutobus(driver,bus,which);
     }
 
-    private static void ukloniAutobus(Scanner tok) {
-        for (int i = 0; i < dao.getBusses().size(); i++) {
-            System.out.println((i+1)+". "+dao.getBusses().get(i));
-        }
-        int index = tok.nextInt()-1;
-        Bus bus = dao.getBusses().get(index);
-        dao.deleteBus(bus);
-    }
-
-    private static void otpustiVozaca(Scanner tok) {
-        for (int i = 0; i < dao.getDrivers().size(); i++) {
-            System.out.println((i+1)+". " + dao.getDrivers().get(i));
-        }
-        int index = tok.nextInt()-1;
-        ba.unsa.etf.rs.tutorijal8.Driver driver = dao.getDrivers().get(index);
-        dao.deleteDriver(driver);
-    }
-
-    private static void dodajAutobus(Scanner tok) {
-        String maker = tok.nextLine();
-        String series = tok.nextLine();
-        int seatNumber = tok.nextInt();
-        Bus bus = new Bus(maker, series, seatNumber);
-        dao.addBus(bus);
-    }
-
-    private static void dodajVozaca(Scanner tok){
-        Scanner stream = tok;
-        String name = stream.nextLine();
-        String surname = stream.nextLine();
-        String umcn = stream.nextLine();
-        LocalDate birthday = LocalDate.parse(stream.nextLine(), DateTimeFormatter.ofPattern("d.M.yyyy"));
-        LocalDate hireDate = LocalDate.parse(stream.nextLine(), DateTimeFormatter.ofPattern("d.M.yyyy"));
-        dao.addDriver(new Driver(name, surname, umcn, birthday, hireDate));
-    }
 }
